@@ -79,11 +79,31 @@ minecraft {
 
 sourceSets.main.get().resources.srcDir("src/generated/resources")
 
+// Workaround for non-mc libraries in ForgeGradle
+configurations {
+    val library = maybeCreate("library")
+    api.configure {
+        extendsFrom(library)
+    }
+}
+minecraft.runs.all {
+    lazyToken("minecraft_classpath") {
+        return@lazyToken configurations["library"].copyRecursive().resolve()
+            .joinToString(File.pathSeparator) { it.absolutePath }
+    }
+}
+
 val forgeKotlinVersion: String by project
+val kotlinVersion: String by project
 dependencies {
     minecraft("net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}")
     implementation("thedarkcolour:kotlinforforge:${forgeKotlinVersion}")
     compileOnly(project(":Common"))
+
+    val library = configurations["library"]
+    library("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion") {
+        exclude(group = "org.jetbrains", module = "annotations")
+    }
 }
 
 tasks.withType<KotlinCompile> {
