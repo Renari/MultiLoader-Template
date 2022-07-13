@@ -6,8 +6,17 @@ val modName: String by project
 val modAuthor: String by project
 
 plugins {
-    java
     idea
+    kotlin("jvm") version "1.7.0"
+}
+
+buildscript {
+    val kotlinVersion: String by project
+    extra["kotlin_version"] = kotlinVersion
+
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+    }
 }
 
 allprojects {
@@ -22,14 +31,13 @@ allprojects {
     }
 
     tasks.withType<GenerateModuleMetadata> {
-
         enabled = false
     }
 }
 
 
 subprojects {
-    apply(plugin = "java")
+    apply(plugin = "org.jetbrains.kotlin.jvm")
 
     extensions.configure<JavaPluginExtension> {
         toolchain.languageVersion.set(JavaLanguageVersion.of(17))

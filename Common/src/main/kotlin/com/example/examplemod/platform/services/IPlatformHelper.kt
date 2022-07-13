@@ -1,13 +1,12 @@
-package com.example.examplemod.platform.services;
+package com.example.examplemod.platform.services
 
-public interface IPlatformHelper {
-
+interface IPlatformHelper {
     /**
      * Gets the name of the current platform
      *
      * @return The name of the current platform.
      */
-    String getPlatformName();
+    fun getPlatformName(): String?
 
     /**
      * Checks if a mod with the given id is loaded.
@@ -15,12 +14,12 @@ public interface IPlatformHelper {
      * @param modId The mod to check if it is loaded.
      * @return True if the mod is loaded, false otherwise.
      */
-    boolean isModLoaded(String modId);
+    fun isModLoaded(modId: String?): Boolean
 
     /**
      * Check if the game is currently in a development environment.
      *
      * @return True if in a development environment, false otherwise.
      */
-    boolean isDevelopmentEnvironment();
+    fun isDevelopmentEnvironment(): Boolean
 }

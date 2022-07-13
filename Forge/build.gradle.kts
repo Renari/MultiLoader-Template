@@ -1,8 +1,17 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    java
+    kotlin("jvm")
     eclipse
     id("net.minecraftforge.gradle") version ("5.1.+")
     `maven-publish`
+}
+
+repositories {
+    maven {
+        name = "Kotlin for Forge"
+        url = uri("https://thedarkcolour.github.io/KotlinForForge/")
+    }
 }
 
 val minecraftVersion: String by project
@@ -70,12 +79,14 @@ minecraft {
 
 sourceSets.main.get().resources.srcDir("src/generated/resources")
 
+val forgeKotlinVersion: String by project
 dependencies {
     minecraft("net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}")
+    implementation("thedarkcolour:kotlinforforge:${forgeKotlinVersion}")
     compileOnly(project(":Common"))
 }
 
-tasks.withType<JavaCompile> {
+tasks.withType<KotlinCompile> {
     source(project(":Common").sourceSets.main.get().allSource)
 }
 

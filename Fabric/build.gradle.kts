@@ -1,5 +1,8 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     idea
+    kotlin("jvm")
     `maven-publish`
     id("fabric-loom") version "0.10-SNAPSHOT"
 }
@@ -7,6 +10,7 @@ plugins {
 val minecraftVersion: String by project
 val fabricVersion: String by project
 val fabricLoaderVersion: String by project
+val fabricKotlinVersion: String by project
 val modName: String by project
 val modId: String by project
 
@@ -21,6 +25,7 @@ dependencies {
     mappings(loom.officialMojangMappings())
     modImplementation("net.fabricmc:fabric-loader:${fabricLoaderVersion}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${fabricVersion}")
+    modImplementation("net.fabricmc:fabric-language-kotlin:${fabricKotlinVersion}")
     implementation(project(":Common"))
 }
 
@@ -51,7 +56,7 @@ tasks.processResources {
     }
 }
 
-tasks.withType<JavaCompile> {
+tasks.withType<KotlinCompile> {
     source(project(":Common").sourceSets.main.get().allSource)
 }
 
