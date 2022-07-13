@@ -101,7 +101,10 @@ dependencies {
     compileOnly(project(":Common"))
 
     val library = configurations["library"]
-    library("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion") {
+    library("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}") {
+        exclude(group = "org.jetbrains", module = "annotations")
+    }
+    library("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}") {
         exclude(group = "org.jetbrains", module = "annotations")
     }
 }
