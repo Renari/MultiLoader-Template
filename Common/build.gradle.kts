@@ -1,5 +1,4 @@
 plugins {
-    java
     kotlin("jvm")
     `maven-publish`
     id("org.spongepowered.gradle.vanilla") version "0.2.1-SNAPSHOT"
