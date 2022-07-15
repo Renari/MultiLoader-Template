@@ -7,16 +7,7 @@ val modAuthor: String by project
 
 plugins {
     idea
-    kotlin("jvm") version "1.7.0"
-}
-
-buildscript {
-    val kotlinVersion: String by project
-    extra["kotlin_version"] = kotlinVersion
-
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
-    }
+    kotlin("jvm")
 }
 
 allprojects {

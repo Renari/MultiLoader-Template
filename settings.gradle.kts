@@ -17,6 +17,10 @@ pluginManagement {
             if (requested.id.id == "net.minecraftforge.gradle") {
                 useModule("${requested.id}:ForgeGradle:${requested.version}")
             }
+            if (requested.id.namespace?.startsWith("org.jetbrains.kotlin") == true) {
+                val kotlinVersion: String by settings
+                useVersion(kotlinVersion)
+            }
         }
     }
 }
